@@ -1,0 +1,26 @@
+name: Reusable Python Test
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        required: true
+        type: string
+        default: "3.10"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ inputs.python-version }}
+        
+    - name: Install and Test
+      working-directory: ./05-github-actions/sample-app
+      run: |
+        pip install -r requirements.txt
+        pytest test_app.py
