@@ -1,0 +1,29 @@
+replicaCount: 2
+
+image:
+  repository: ghcr.io/sithumdfernando/full-devops-roadmap/sample-app
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+config:
+  appEnv: "production"
+  logLevel: "info"
+
+secret:
+  apiKey: "super-secret-key"
+
+ingress:
+  enabled: false
+  host: myapp.local
