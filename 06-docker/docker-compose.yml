@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ../05-github-actions/sample-app
+      dockerfile: ../../06-docker/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - REDIS_HOST=cache
+    depends_on:
+      - cache
+
+  cache:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
